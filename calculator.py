@@ -1,18 +1,18 @@
 # Source: https://www.omnicalculator.com/health/bmr-harris-benedict-equation
 
+
 # Define function to calculate the basal metabolic rate (BMR)
 # BMR: Equivalent to the amount of energy, in calories, that your body needs to function if it were to rest for 24 hours
 def calculate_bmr(user):
     # Apply formula depending on the gender
     if user["gender"] == "Männlich":
-        bmr = (10 * user["weight"]) + \
-            (6.25 * user["height"]) - (5 * user["age"]) + 5
+        bmr = (10 * user["weight"]) + (6.25 * user["height"]) - (5 * user["age"]) + 5
     else:
-        bmr = (10 * user["weight"]) + \
-            (6.25 * user["height"]) - (5 * user["age"]) - 161
+        bmr = (10 * user["weight"]) + (6.25 * user["height"]) - (5 * user["age"]) - 161
 
     # Return the BMR
     return bmr
+
 
 # Define function to calculate total daily energy expenditure (TDEE)
 # TDEE: Equivalent to the number of calories you burn throughout a 24-hour period
@@ -22,7 +22,7 @@ def calculate_tdee(user):
         "Sitzend": 1.2,
         "Leicht aktiv": 1.375,
         "Mäßig aktiv": 1.55,
-        "Sehr aktiv": 1.725
+        "Sehr aktiv": 1.725,
     }
 
     # Get BMR
@@ -33,6 +33,7 @@ def calculate_tdee(user):
 
     # Return TDEE
     return tdee
+
 
 # Define function to calculate the macronutrient distribution
 def calculate_macronutrients(user):
@@ -68,14 +69,20 @@ def calculate_macronutrients(user):
         fat_percentage = 30
 
     # Calculate macronutrient amounts in grams
-    carb_grams = int((adjusted_tdee * carb_percentage) / 100 / 4)  # 4 calories per gram of carbs
-    protein_grams = int((adjusted_tdee * protein_percentage) / 100 / 4) # 4 calories per gram of protein
-    fat_grams = int((adjusted_tdee * fat_percentage) / 100 / 9)  # 9 calories per gram of fat
+    carb_grams = int(
+        (adjusted_tdee * carb_percentage) / 100 / 4
+    )  # 4 calories per gram of carbs
+    protein_grams = int(
+        (adjusted_tdee * protein_percentage) / 100 / 4
+    )  # 4 calories per gram of protein
+    fat_grams = int(
+        (adjusted_tdee * fat_percentage) / 100 / 9
+    )  # 9 calories per gram of fat
 
     # Return macronutrient distribution
     return {
         "Kalorien": int(adjusted_tdee),
         "Kohlenhydrate": carb_grams,
         "Proteine": protein_grams,
-        "Fette": fat_grams
+        "Fette": fat_grams,
     }
