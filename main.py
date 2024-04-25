@@ -39,7 +39,7 @@ st.header("Nährwerte")
 result_table_placeholder = st.empty()
 result_table_placeholder.table(empty_result_table)
 
-
+# Create an empty space where we put the meal
 menu_vorschlag = st.empty()
 
 
@@ -59,6 +59,7 @@ if st.button("Berechne"):
     # Display results in the table
     result_table_placeholder.table(result)
 
+    # Ask Chatgpt
     data = answer(
         result["Kalorien"],
         result["Kohlenhydrate"],
@@ -66,6 +67,7 @@ if st.button("Berechne"):
         result["Fette"],
     )
 
+    # Replace the empty space with the menu: https://docs.streamlit.io/develop/api-reference/layout/st.empty
     with menu_vorschlag.container():
         st.header("Dein Menüvorschlag")
         st.subheader("Frühstück: " + data["breakfast"]["meal_title"])
