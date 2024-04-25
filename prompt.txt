@@ -1,0 +1,26 @@
+For the given calories: 1400cal, carbs: 120g, protein: 95g, fat: 40g, create three diverse meal suggestions (breakfast, lunch and dinner) for a day which fits the requirement.
+Answer in Python parsable JSON only in exactly the following form: {
+    "breakfast": {
+        meal_title: "", // title of meal
+        ingredients: [
+        {
+            name: "ingredient 1", // name of ingredient in german
+            amount: "amount", // amount in european measurment units
+            calories: 0, // amount of calories
+            carbs: 0, // amount of carbs in grams
+            protein: 0, // amount of protein in grams
+            fat: 0, // amount of fat in grams
+        },
+        {
+            name: "ingredient 2", // name of ingredient in german
+            amount: "amount", // amount in european measurment units
+            calories: 0, // amount of calories
+            carbs: 0, // amount of carbs in grams
+            protein: 0, // amount of protein in grams
+            fat: 0, // amount of fat in grams
+        },
+        ...
+    ]},
+    "lunch": {...},
+    "dinner": {...}
+}
