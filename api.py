@@ -11,7 +11,7 @@ client = OpenAI(
 
 
 def answer(cal, carbs, protein, fat):
-    input_content = f"For the given calories: {cal}cal, carbs: {carbs}g, protein: {protein}g, fat: {fat}g, create three meal suggestions (breakfast, lunch and dinner) for a day which fits the requirement."
+    input_content = f"For the given calories: {cal}cal, carbs: {carbs}g, protein: {protein}g, fat: {fat}g, create three diverse meal suggestions (breakfast, lunch and dinner) for a day which fits the requirement."
     output_content = """
     Answer in Python parsable JSON only in exactly the following form: {
         "breakfast": {

@@ -35,8 +35,12 @@ empty_result_table = {
     "Fett (g)": 0,
     "Kohlenhydrate (g)": 0,
 }
+st.header("Nährwerte")
 result_table_placeholder = st.empty()
 result_table_placeholder.table(empty_result_table)
+
+
+menu_vorschlag = st.empty()
 
 
 # Create button for handling the data and calculation
@@ -55,11 +59,62 @@ if st.button("Berechne"):
     # Display results in the table
     result_table_placeholder.table(result)
 
-    st.json(
-        answer(
-            result["Kalorien"],
-            result["Kohlenhydrate"],
-            result["Proteine"],
-            result["Fette"],
-        )
+    data = answer(
+        result["Kalorien"],
+        result["Kohlenhydrate"],
+        result["Proteine"],
+        result["Fette"],
     )
+
+    with menu_vorschlag.container():
+        st.header("Dein Menüvorschlag")
+        st.subheader("Frühstück: " + data["breakfast"]["meal_title"])
+        for food in data["breakfast"]["ingredients"]:
+            st.markdown(
+                food["name"]
+                + "("
+                + food["amount"]
+                + "): "
+                + str(food["calories"])
+                + "Cal, "
+                + str(food["carbs"])
+                + "g Carbs, "
+                + str(food["protein"])
+                + "g Protein, "
+                + str(food["fat"])
+                + "g Fett"
+            )
+
+        st.subheader("Mittagessen: " + data["lunch"]["meal_title"])
+        for food in data["lunch"]["ingredients"]:
+            st.markdown(
+                food["name"]
+                + "("
+                + food["amount"]
+                + "): "
+                + str(food["calories"])
+                + "Cal, "
+                + str(food["carbs"])
+                + "g Carbs, "
+                + str(food["protein"])
+                + "g Protein, "
+                + str(food["fat"])
+                + "g Fett"
+            )
+
+        st.subheader("Abendessen: " + data["dinner"]["meal_title"])
+        for food in data["dinner"]["ingredients"]:
+            st.markdown(
+                food["name"]
+                + "("
+                + food["amount"]
+                + "): "
+                + str(food["calories"])
+                + "Cal, "
+                + str(food["carbs"])
+                + "g Carbs, "
+                + str(food["protein"])
+                + "g Protein, "
+                + str(food["fat"])
+                + "g Fett"
+            )
