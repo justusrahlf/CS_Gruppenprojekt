@@ -60,12 +60,13 @@ if st.button("Berechne"):
     result_table_placeholder.table(result)
 
     # Ask Chatgpt
-    data = answer(
-        result["Kalorien"],
-        result["Kohlenhydrate"],
-        result["Proteine"],
-        result["Fette"],
-    )
+    with st.spinner():
+        data = answer(
+            result["Kalorien"],
+            result["Kohlenhydrate"],
+            result["Proteine"],
+            result["Fette"],
+        )
 
     # Replace the empty space with the menu: https://docs.streamlit.io/develop/api-reference/layout/st.empty
     with menu_vorschlag.container():
@@ -74,13 +75,13 @@ if st.button("Berechne"):
         for food in data["breakfast"]["ingredients"]:
             st.markdown(
                 food["name"]
-                + "("
+                + " ("
                 + food["amount"]
                 + "): "
                 + str(food["calories"])
-                + "Cal, "
+                + "Kalorien, "
                 + str(food["carbs"])
-                + "g Carbs, "
+                + "g Kohlenhydrate, "
                 + str(food["protein"])
                 + "g Protein, "
                 + str(food["fat"])
@@ -91,13 +92,13 @@ if st.button("Berechne"):
         for food in data["lunch"]["ingredients"]:
             st.markdown(
                 food["name"]
-                + "("
+                + " ("
                 + food["amount"]
                 + "): "
                 + str(food["calories"])
-                + "Cal, "
+                + "Kalorien, "
                 + str(food["carbs"])
-                + "g Carbs, "
+                + "g Kohlenhydrate, "
                 + str(food["protein"])
                 + "g Protein, "
                 + str(food["fat"])
@@ -108,13 +109,13 @@ if st.button("Berechne"):
         for food in data["dinner"]["ingredients"]:
             st.markdown(
                 food["name"]
-                + "("
+                + " ("
                 + food["amount"]
                 + "): "
                 + str(food["calories"])
-                + "Cal, "
+                + "Kalorien, "
                 + str(food["carbs"])
-                + "g Carbs, "
+                + "g Kohlenhydrate, "
                 + str(food["protein"])
                 + "g Protein, "
                 + str(food["fat"])

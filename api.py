@@ -19,17 +19,17 @@ client = OpenAI(
 # Define function to create a dict with meal ideas from calories, carbs, proetin and fat
 def answer(cal, carbs, protein, fat):
     # First part of question asked to chatgpt
-    input_content = f"For the given calories: {cal}cal, carbs: {carbs}g, protein: {protein}g, fat: {fat}g, create three diverse meal suggestions (breakfast, lunch and dinner) for a day which fits the requirement."
+    input_content = f"For the exact amount of given macronutrients: {cal}cal, {carbs}g carbs, {protein}g protein and {fat}g fat, create three diverse meal suggestions (breakfast, lunch and dinner) for a day. Match the calorie requirement exactly (!) and use foods from various kitchens."
 
     # Second part of question asked to chatgpt
     output_content = """
-    Answer in Python parsable JSON only in exactly the following form: {
+    Answer in Python parsable JSON, each value should be in german! Only in exactly the following form: {
         "breakfast": {
             meal_title: "", // title of meal
             ingredients: [
             {
                 name: "ingredient 1", // name of ingredient
-                amount: "amount", // amount in european measurment units
+                amount: "amount", // amount in grams
                 calories: 0, // amount of calories
                 carbs: 0, // amount of carbs in grams
                 protein: 0, // amount of protein in grams
@@ -37,7 +37,7 @@ def answer(cal, carbs, protein, fat):
             },
             {
                 name: "ingredient 2", // name of ingredient
-                amount: "amount", // amount in european measurment units
+                amount: "amount", // amount in grams
                 calories: 0, // amount of calories
                 carbs: 0, // amount of carbs in grams
                 protein: 0, // amount of protein in grams
@@ -55,9 +55,9 @@ def answer(cal, carbs, protein, fat):
 
     # Ask chatgpt (using an API) https://www.geeksforgeeks.org/how-to-use-chatgpt-api-in-python/
     completion = client.chat.completions.create(
-        model="gpt-3.5-turbo",
+        model="gpt-4-turbo",
         messages=[{"role": "user", "content": content}],
+        response_format={"type": "json_object"},
     )
 
-    # Return the result but change it into a dict as it is a string initially
     return loads(completion.choices[0].message.content)

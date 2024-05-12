@@ -1,5 +1,5 @@
-For the given calories: 1400cal, carbs: 120g, protein: 95g, fat: 40g, create three diverse meal suggestions (breakfast, lunch and dinner) for a day which fits the requirement.
-Answer in Python parsable JSON only in exactly the following form: {
+For the exact amount of given macro nutriants: 1400cal, 120g carbs, 95g protein and 40g fat, create three diverse meal suggestions (breakfast, lunch and dinner) for a day which fits the requirement. Try to match the calories exactly with your suggestions and use foods from various kitchens.
+Answer in Python parsable JSON, each value should be in german! Only in exactly the following form: {
     "breakfast": {
         meal_title: "", // title of meal
         ingredients: [
