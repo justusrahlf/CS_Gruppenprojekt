@@ -2,6 +2,7 @@ import streamlit as st
 from data_helper import *
 from calculator import calculate_macronutrients
 from api import answer
+from matplotlib import pyplot as plt
 
 # Set page title and subtitle
 st.title("Macronutrient planner")
@@ -39,9 +40,10 @@ st.header("Nährwerte")
 result_table_placeholder = st.empty()
 result_table_placeholder.table(empty_result_table)
 
+piechart = st.empty()
+
 # Create an empty space where we put the meal
 menu_vorschlag = st.empty()
-
 
 # Create button for handling the data and calculation
 if st.button("Berechne"):
@@ -56,8 +58,50 @@ if st.button("Berechne"):
     # Call function to perform calculations
     result = calculate_macronutrients(user)
 
-    # Display results in the table
+ # Display results in the table
     result_table_placeholder.table(result)
+    with piechart.container():
+      
+        # Data for the visualisation
+        
+        # Data for Graph 1
+        nutritional_value = ["Kohlenhydrate", "Proteine", "Fette"]
+        weights = [result["Kohlenhydrate"],result["Proteine"], result["Fette"] ]
+        
+        # Data for Graph 2
+        own_calories = result["Kalorien"]
+        durchschnitt_kalorien_schweiz = 2573  # Durchschnittliche tägliche Kalorienaufnahme laut Statista
+        kalorien_daten = [own_calories, durchschnitt_kalorien_schweiz]
+        labels = ['Eigene Kalorien', 'Durchschnitt Schweiz']
+       
+        # Creating a figure with 2 subplots
+        fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(12, 5)) 
+        fig.subplots_adjust(wspace=0.5)
+       
+        # Determine the font size of the labels
+        fontsize_for_labels = 10 
+ 
+        # Creating the Piechart
+        space, texts, autotexts = ax1.pie(weights, labels=nutritional_value, autopct = "%1.2f%%", startangle = 90, shadow = True, explode = (0.08, 0.08, 0.08))
+        ax1.set_title('Aufteilung der Nährwerte', fontweight='bold')
+       
+        for text in texts:
+            text.set_fontsize(fontsize_for_labels)
+            text.set_weight('bold')
+           
+        for autotext in autotexts:
+            autotext.set_color('white')
+            autotext.set_fontsize(fontsize_for_labels)
+            autotext.set_weight('bold')
+       
+        # Creating the Bar Chart
+        ax2.bar(labels, kalorien_daten, color = ['blue', 'green'])
+        ax2.set_title('Durchschnittlich weltweiter vergleich deiner Kalorien', fontweight = "bold") 
+        ax2.set_ylabel('Kalorien', fontdict={'weight': 'bold'}) #set_ylabel erwartet ein dic
+        ax2.set_xticklabels(labels,fontsize = fontsize_for_labels, fontweight = 'bold')
+      
+        #Showig both Graphs
+        st.pyplot(fig)
 
     # Ask Chatgpt
     with st.spinner():
